@@ -11,9 +11,7 @@ const connectDatabase = () => {
     .then((data) => {
       console.log(`mongodb connected with ${data.connection.host}`);
     })
-    .catch((error) => {
-      console.log("error occured while connecting with db", error);
-    });
+    // catch is covered in unhandled Promise Rejection
 };
 
 module.exports = connectDatabase;
