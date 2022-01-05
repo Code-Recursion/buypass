@@ -60,7 +60,7 @@ const updateProduct = CatchAsyncErrors(async (req, res, next) => {
     new: true,
     runValidators: true,
   }).catch((err) => {
-    console.log("err while updaing", err);
+    console.log("err while updating", err);
   });
 
   return res.status(200).json({

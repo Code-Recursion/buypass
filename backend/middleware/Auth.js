@@ -2,7 +2,8 @@ const ErrorHandler = require("../utils/errorHandler");
 const catchAsyncErrors = require("./catchAsyncErrors");
 const jwt = require("jsonwebtoken");
 const User = require("../models/UserModel");
-exports.isAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
+
+const isAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
   const { token } = req.cookies;
   // console.log("token", token);
   if (!token) {
@@ -14,3 +15,25 @@ exports.isAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
   req.user = await User.findById(decodedData.id);
   next();
 });
+
+const authorizedRoles = (...roles) => {
+  return (req, res, next) => {
+    console.log('roles', roles)
+    console.log('user', req.user)
+    if (!roles.includes(req.user.role)) {
+
+      return next(
+        new ErrorHandler(
+          `Role: ${req.user.role} is not allowed to access this resource`,
+          403
+        )
+      );
+    }
+    next();
+  };
+};
+
+module.exports = {
+  isAuthenticatedUser,
+  authorizedRoles,
+};
