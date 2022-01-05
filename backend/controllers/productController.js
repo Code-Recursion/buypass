@@ -41,6 +41,10 @@ const getProductDetailsById = CatchAsyncErrors(async (req, res, next) => {
 
 // Create a Product -- ADMIN
 const createProduct = CatchAsyncErrors(async (req, res, next) => {
+
+  // adding user who created the product
+  req.body.user = req.user.id 
+
   const product = await Product.create(req.body);
   res.status(201).json({
     success: true,
