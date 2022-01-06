@@ -155,22 +155,48 @@ const getUserDetails = catchAsyncErrors(async (req, res, next) => {
 // Update/Change user password
 const updatePassword = catchAsyncErrors(async (req, res, next) => {
   const user = await User.findById(req.user.id).select("+password");
-  
+
   const isPasswordMatched = await user.comparePassword(req.body.oldPassword);
 
   if (!isPasswordMatched) {
     return next(new ErrorHandler("Old password is incorrect", 400));
   }
 
-  if(req.body.newPassword !== req.body.confirmPassword) {
+  if (req.body.newPassword !== req.body.confirmPassword) {
     return next(new ErrorHandler("Password does not match", 400));
   }
 
-  user.password = req.body.newPassword
+  user.password = req.body.newPassword;
 
-  await user.save()
+  await user.save();
 
-  generateToken(user, 'Password Changed', 200, res)
+  generateToken(user, "Password Changed", 200, res);
+});
+
+// Update user profile details
+const updateProfile = catchAsyncErrors(async (req, res, next) => {
+  const newUserData = {
+    name: req.body.name,
+    email: req.body.email,
+  };
+  if (!newUserData.name) {
+    return next(new ErrorHandler("Please enter name", 400));
+  }
+  if (!newUserData.email) {
+    return next(new ErrorHandler("Please enter email", 400));
+  }
+  // cloudinary for image update is to be added later
+  const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
+    new: true,
+    runValidators: true,
+    useFindAndModify: false,
+  });
+
+  res.status(200).json({
+    success: true,
+    message: "user details updated successfully",
+    user,
+  });
 });
 
 module.exports = {
@@ -181,5 +207,6 @@ module.exports = {
   resetPassword,
   getAllUsers,
   getUserDetails,
-  updatePassword
+  updatePassword,
+  updateProfile,
 };
