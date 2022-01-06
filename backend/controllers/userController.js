@@ -129,7 +129,7 @@ const resetPassword = catchAsyncErrors(async (req, res, next) => {
 
 // Get All Users -- ADMIN
 const getAllUsers = catchAsyncErrors(async (req, res) => {
-  const usersCount = await Product.count();
+  const usersCount = await User.count();
   const users = await User.find();
 
   res.status(200).json({
@@ -148,6 +148,21 @@ const getUserDetails = catchAsyncErrors(async (req, res, next) => {
   res.status(200).json({
     success: true,
     message: "User details found",
+    user,
+  });
+});
+
+// Get User Details by ID -- ADMIN // admin can access everyone's details
+const getUserDetailsAdmin = catchAsyncErrors(async (req, res) => {
+  const user = await User.findById(req.params.id);
+  if (!user) {
+    return new (new ErrorHandler(
+      `User not found with given id ${req.params.id}`
+    ),
+    404)();
+  }
+  res.status(200).json({
+    message: "success",
     user,
   });
 });
@@ -199,6 +214,62 @@ const updateProfile = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
+// Update User Role -- ADMIN
+const updateUserRole = catchAsyncErrors(async (req, res, next) => {
+  let user = await User.findById(req.params.id);
+
+  if (!user) {
+    return next(
+      new ErrorHandler(`User with id ${req.params.id} not found`, 404)
+    );
+  }
+
+  const newUserData = {
+    name: req.body.name,
+    email: req.body.email,
+    role: req.body.role,
+  };
+  if (!newUserData.name) {
+    return next(new ErrorHandler("Please enter name", 400));
+  }
+  if (!newUserData.email) {
+    return next(new ErrorHandler("Please enter email", 400));
+  }
+  if (!newUserData.role) {
+    return next(new ErrorHandler("Please enter role", 400));
+  }
+  user = await User.findByIdAndUpdate(req.params.id, newUserData, {
+    new: true,
+    runValidators: true,
+    useFindAndModify: false,
+  });
+
+  res.status(200).json({
+    success: true,
+    message: "user role updated successfully",
+    user,
+  });
+});
+
+// Delete User --Admin
+const deleteUser = catchAsyncErrors(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+
+  if (!user) {
+    return next(
+      new ErrorHandler(`User with id ${req.params.id} not found`, 404)
+    );
+  }
+
+  await User.remove(user);
+
+  res.status(200).json({
+    success: true,
+    message: "user deleted successfully",
+    user,
+  });
+});
+
 module.exports = {
   registerUser,
   loginUser,
@@ -209,4 +280,7 @@ module.exports = {
   getUserDetails,
   updatePassword,
   updateProfile,
+  getUserDetailsAdmin,
+  updateUserRole,
+  deleteUser,
 };
