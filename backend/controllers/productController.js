@@ -41,9 +41,8 @@ const getProductDetailsById = catchAsyncErrors(async (req, res, next) => {
 
 // Create a Product -- ADMIN
 const createProduct = catchAsyncErrors(async (req, res, next) => {
-
   // adding user who created the product
-  req.body.user = req.user.id 
+  req.body.user = req.user.id;
 
   const product = await Product.create(req.body);
   res.status(201).json({
@@ -90,10 +89,55 @@ const deleteProduct = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
+// Create New Review / Update Review
+const createProductReview = catchAsyncErrors(async (req, res, next) => {
+  const { rating, comment, productId } = req.body;
+
+  const review = {
+    user: req.user._id,
+    name: req.user.name,
+    rating: Number(rating),
+    comment,
+  };
+
+  const product = await Product.findById(productId);
+
+  const isReviewed = product.reviews.find(
+    (rev) => rev.user.toString() == req.user._id
+  );
+
+  if (isReviewed) {
+    product.reviews.forEach((rev) => {
+      if (rev.user.toString() == req.user._id.toString()) {
+        rev.rating = rating;
+        rev.comment = comment;
+      }
+    });
+  } else {
+    product.reviews.push(review);
+    product.numOfReviews = product.reviews.length;
+  }
+
+  let averageRating = 0;
+
+  product.reviews.forEach((rev) => {
+    averageRating += rev.rating;
+  });
+
+  product.ratings = averageRating / product.reviews.length;
+
+  await product.save({ validateBeforeSave: false });
+  res.status(200).json({
+    success: true,
+    message: "rating added successfully",
+  });
+});
+
 module.exports = {
   getAllProducts,
   getProductDetailsById,
   createProduct,
   updateProduct,
   deleteProduct,
+  createProductReview,
 };

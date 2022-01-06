@@ -261,12 +261,11 @@ const deleteUser = catchAsyncErrors(async (req, res, next) => {
     );
   }
 
-  await User.remove(user);
+  await User.deleteOne(user);
 
   res.status(200).json({
     success: true,
     message: "user deleted successfully",
-    user,
   });
 });
 
