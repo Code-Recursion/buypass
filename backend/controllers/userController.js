@@ -127,10 +127,37 @@ const resetPassword = catchAsyncErrors(async (req, res, next) => {
   generateToken(user, "Password reset done", 200, res);
 });
 
+// Get All Users -- ADMIN
+const getAllUsers = catchAsyncErrors(async (req, res) => {
+  const usersCount = await Product.count();
+  const users = await User.find();
+
+  res.status(200).json({
+    message: "success",
+    users,
+    usersCount,
+  });
+});
+
+// Get User Details by ID
+const getUserDetails = catchAsyncErrors(async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+  if (!user) {
+    return next(new ErrorHandler("User not found", 404));
+  }
+  res.status(200).json({
+    success: true,
+    message: "User details found",
+    user,
+  });
+});
+
 module.exports = {
   registerUser,
   loginUser,
   forgotPassword,
   logoutUser,
   resetPassword,
+  getAllUsers,
+  getUserDetails,
 };

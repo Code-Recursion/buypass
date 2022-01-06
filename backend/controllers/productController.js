@@ -1,11 +1,11 @@
 // const { findByIdAndUpdate } = require("../models/ProductModel");
 const Product = require("../models/ProductModel");
 const ErrorHandler = require("../utils/errorHandler");
-const CatchAsyncErrors = require("../middleware/catchAsyncErrors");
+const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const ApiFeatures = require("../utils/apiFeatures");
 
 // Get All Products
-const getAllProducts = CatchAsyncErrors(async (req, res) => {
+const getAllProducts = catchAsyncErrors(async (req, res) => {
   const resultPerPage = 5;
   const productsCount = await Product.count();
 
@@ -24,7 +24,7 @@ const getAllProducts = CatchAsyncErrors(async (req, res) => {
 });
 
 // Get a Single Product
-const getProductDetailsById = CatchAsyncErrors(async (req, res, next) => {
+const getProductDetailsById = catchAsyncErrors(async (req, res, next) => {
   const product = await Product.findById(req.params.id);
   if (!product) {
     return next(new ErrorHandler("Product not found", 404));
@@ -40,7 +40,7 @@ const getProductDetailsById = CatchAsyncErrors(async (req, res, next) => {
 });
 
 // Create a Product -- ADMIN
-const createProduct = CatchAsyncErrors(async (req, res, next) => {
+const createProduct = catchAsyncErrors(async (req, res, next) => {
 
   // adding user who created the product
   req.body.user = req.user.id 
@@ -53,7 +53,7 @@ const createProduct = CatchAsyncErrors(async (req, res, next) => {
 });
 
 // Update a Product -- ADMIN
-const updateProduct = CatchAsyncErrors(async (req, res, next) => {
+const updateProduct = catchAsyncErrors(async (req, res, next) => {
   let product = Product.findById(req.params.id);
 
   if (!product) {
@@ -75,7 +75,7 @@ const updateProduct = CatchAsyncErrors(async (req, res, next) => {
 });
 
 // Delete Product -- ADMIN
-const deleteProduct = CatchAsyncErrors(async (req, res, next) => {
+const deleteProduct = catchAsyncErrors(async (req, res, next) => {
   const product = await Product.findById(req.params.id);
   if (!product) {
     return next(new ErrorHandler("Product not found", 404));
