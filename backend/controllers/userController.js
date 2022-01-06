@@ -69,7 +69,7 @@ const forgotPassword = catchAsyncErrors(async (req, res, next) => {
   // Get ResetPassword
   const resetToken = await user.getResetPasswordToken();
 
-  console.log("reset Token", resetToken);
+  // console.log("reset Token", resetToken);
   await user.save({ validateBeforeSave: false });
 
   const resetPasswordUrl = `${req.protocol}://${req.get(
@@ -152,6 +152,27 @@ const getUserDetails = catchAsyncErrors(async (req, res, next) => {
   });
 });
 
+// Update/Change user password
+const updatePassword = catchAsyncErrors(async (req, res, next) => {
+  const user = await User.findById(req.user.id).select("+password");
+  
+  const isPasswordMatched = await user.comparePassword(req.body.oldPassword);
+
+  if (!isPasswordMatched) {
+    return next(new ErrorHandler("Old password is incorrect", 400));
+  }
+
+  if(req.body.newPassword !== req.body.confirmPassword) {
+    return next(new ErrorHandler("Password does not match", 400));
+  }
+
+  user.password = req.body.newPassword
+
+  await user.save()
+
+  generateToken(user, 'Password Changed', 200, res)
+});
+
 module.exports = {
   registerUser,
   loginUser,
@@ -160,4 +181,5 @@ module.exports = {
   resetPassword,
   getAllUsers,
   getUserDetails,
+  updatePassword
 };
