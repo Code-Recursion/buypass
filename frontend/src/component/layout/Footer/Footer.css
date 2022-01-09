@@ -1,0 +1,86 @@
+.footer {
+  margin-top: 10vmax;
+  background-color: rgb(27, 26, 26);
+  display: flex;
+  color: white;
+  justify-content: center;
+  align-items: center;
+}
+
+.leftFooter {
+  height: 25rem;
+  display: flex;
+  width: 20%;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.leftFooter img {
+  margin: 1rem;
+  border: 0 !important;
+  padding: 0;
+  cursor: pointer;
+  width: 12rem;
+}
+
+.midFooter {
+  width: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.midFooter h1 {
+  font-size: 3rem;
+  position: relative;
+  top: 0rem;
+  color: tomato;
+}
+
+.rightFooter {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.rightFooter a {
+  margin: 1rem;
+  font-size: large;
+  text-decoration: none;
+  color: white;
+  transition: all 0.2s;
+}
+
+.rightFooter a:hover {
+  color: grey;
+}
+@media screen and (max-width: 786px) {
+  .footer {
+    overflow: hidden;
+    height: 20vmax;
+  }
+  .footer .leftFooter h2 {
+    font-size: 2vmin;
+  }
+  .footer .leftFooter p {
+    display: none;
+  }
+  .footer .leftFooter > img {
+    width: 8vmax;
+  }
+  .footer .midFooter h1 {
+    font-size: 3vmax;
+  }
+  .footer .midFooter p {
+    font-size: 1.5vmax;
+  }
+  .footer .rightFooter {
+    font-size: 1vmax;
+  }
+  .footer .rightFooter a {
+    font-size: 1vmax;
+    margin: 0.6vmax;
+  }
+}

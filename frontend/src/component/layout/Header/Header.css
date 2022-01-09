@@ -2,10 +2,10 @@
   height: 100%;
   width: 0;
   position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  z-index: 2; /* Sit on top */
   left: 0;
   top: 0;
-  background-color: rgba(0, 0, 0, 0.9); /* Black w/opacity */
+  background-color: rgba(0, 0, 0, 0.98);
   overflow-x: hidden; /* Disable horizontal scroll */
   transition: 0.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
 }
@@ -45,6 +45,11 @@
   z-index: 999;
 }
 
+.hamburger {
+  position: fixed;
+  padding: 0.5rem;
+  top: 1rem;
+}
 .closeBtn path {
   stroke: rgb(200, 200, 200);
 }
@@ -62,6 +67,28 @@
   .overlay-content {
     display: flex;
     flex-direction: row;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+  }
+  .nav-icons {
+    display: flex;
+  }
+}
+
+@media (max-width: 786px) {
+  .overlay a {
+    margin: 2rem;
+    padding: 8px;
+    text-decoration: none;
+    font-size: 36px;
+    color: #959191;
+    display: block;
+    transition: 0.3s;
+  }
+  .overlay-content {
+    display: flex;
+    flex-direction: column;
     height: 100vh;
     justify-content: center;
     align-items: center;

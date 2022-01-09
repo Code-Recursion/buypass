@@ -1,0 +1,121 @@
+.banner {
+  background-image: linear-gradient(to right, #635dc0, #3027ae);
+  height: 100vmin;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.banner > h1 {
+  margin: vmax;
+  font-size: 3rem;
+}
+
+.banner > a > button {
+  margin: 2rem;
+  cursor: pointer;
+  background-color: white;
+  border: 1px solid white;
+  padding: 1rem;
+  font-size: 1rem;
+  transition: all 0.3s;
+}
+
+.banner > a > button:hover {
+  color: white;
+  background-color: #635dc0;
+}
+
+.banner::after {
+  content: "";
+  height: 100vmin;
+  width: 100vmax;
+  max-width: 100%;
+  clip-path: polygon(100% 100%, 0 84%, 0 100%);
+  top: 0%;
+  left: 0;
+  position: absolute;
+  background: white;
+}
+
+.homeHeading {
+  text-align: center;
+  border-bottom: 1px solid rgb(224, 224, 224);
+  width: 30%;
+  padding: 1rem;
+  margin: 4rem;
+  margin: auto;
+}
+
+.productCard {
+  width: 14rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.3s;
+  margin: 2rem;
+  text-decoration: none;
+  color: rgb(24, 22, 22);
+}
+.productCard > p {
+  font-size: 1.2rem;
+  padding: 0;
+  margin: 0.5rem;
+}
+.productCard > a {
+  font-size: 1rem;
+}
+.productCard > img {
+  width: 14rem;
+}
+
+.productCard > div {
+  font-size: small;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.productCard > div > span {
+  margin: 0.4rem;
+}
+.productCard > span {
+  color: tomato;
+}
+
+.productCard:hover {
+  box-shadow: 0px 0px 8px rgb(172, 172, 172);
+  transform: translateY(-10px);
+}
+
+@media screen and (max-width: 786px) {
+  .productCard > p {
+    font-size: 1.2vmax;
+  }
+
+  .productCard > div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .productCard > span {
+    font-size: 1.5vmax;
+    text-align: center;
+  }
+
+  .productCard > div > span {
+    margin: 0 0.5vmax;
+    font: 300 1vmax "Roboto";
+  }
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}

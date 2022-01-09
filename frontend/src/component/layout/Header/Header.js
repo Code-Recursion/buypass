@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../../styles/Header.css";
+import "../Header/Header.css";
 import { GrClose } from "react-icons/gr";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IconContext } from "react-icons";
@@ -19,7 +19,7 @@ const Header = () => {
 
   return (
     <div>
-      <span
+      <span className="hamburger"
         onClick={() => {
           setOpen(!open);
         }}
