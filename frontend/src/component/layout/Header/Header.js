@@ -19,7 +19,8 @@ const Header = () => {
 
   return (
     <div>
-      <span className="hamburger"
+      <span
+        className="hamburger"
         onClick={() => {
           setOpen(!open);
         }}
@@ -65,7 +66,7 @@ const Header = () => {
               setOpen(false);
             }}
           >
-            shop
+            Shop
           </Link>
           <Link
             to="/service"
@@ -73,7 +74,7 @@ const Header = () => {
               setOpen(false);
             }}
           >
-            service
+            Service
           </Link>
           <Link
             to="/contact"
@@ -81,7 +82,7 @@ const Header = () => {
               setOpen(false);
             }}
           >
-            contact
+            Contact
           </Link>
           <div className="nav-icons">
             <Link to="/search">

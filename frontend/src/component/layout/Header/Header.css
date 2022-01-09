@@ -12,9 +12,8 @@
 
 .overlay-content {
   position: relative;
-  /* top: 25%;  */
-  width: 100%; /* 100% width */
-  text-align: center; /* Centered text/links */
+  width: 100%;
+  text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -23,19 +22,18 @@
 }
 
 .overlay a {
-  padding: 8px;
+  padding: 1rem;
   text-decoration: none;
   font-size: 36px;
   color: #959191;
-  display: block; /* Display block instead of inline */
-  transition: 0.3s; /* Transition effects on hover (color) */
+  display: block;
+  transition: 0.3s;
 }
 
 .overlay a:hover,
 .overlay a:focus {
   color: #ffffff;
-  transform: translateY(-5px);
-  font-size: 2.5rem;
+  transform: scale(1.2);
 }
 
 .overlay .closebtn {
@@ -73,6 +71,9 @@
   }
   .nav-icons {
     display: flex;
+  }
+  .nav-icons:hover {
+    transform: scale(1vmax);
   }
 }
 
