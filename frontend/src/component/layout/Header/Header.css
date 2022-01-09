@@ -40,13 +40,19 @@
   position: absolute;
   top: 20px;
   right: 45px;
-  z-index: 999;
+  z-index: 2;
 }
 
 .hamburger {
   position: fixed;
   padding: 0.5rem;
   top: 1rem;
+  z-index: 3;
+}
+.hamburger svg {
+  border: 1px dashed rgb(43, 41, 41);
+  color: rgb(51, 48, 48);
+  padding: 5px;
 }
 .closeBtn path {
   stroke: rgb(200, 200, 200);

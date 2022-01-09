@@ -1,0 +1,28 @@
+.loader {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+.loader > div {
+  border: 1rem solid #f3f3f3;
+  border-radius: 50%;
+  width: 5rem;
+  height: 5rem;
+  animation: spin 2s linear infinite;
+  border-bottom: 1rem solid tomato;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

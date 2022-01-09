@@ -6,8 +6,8 @@ const ApiFeatures = require("../utils/apiFeatures");
 
 // Get All Products
 const getAllProducts = catchAsyncErrors(async (req, res) => {
-  const resultPerPage = 5;
-  const productsCount = await Product.count();
+  const resultPerPage = 8;
+  const productsCount = await Product.countDocuments();
 
   const apiFeature = new ApiFeatures(Product.find(), req.query)
     .search()

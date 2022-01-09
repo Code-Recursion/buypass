@@ -5,6 +5,7 @@ import Footer from "./component/layout/Footer/Footer.js";
 import Home from "./component/layout/Home/Home.js";
 import WebFont from "webfontloader";
 import React, { useEffect } from "react";
+import Loader from "./component/layout/Loader/Loader";
 
 const App = () => {
   useEffect(() => {
@@ -20,7 +21,7 @@ const App = () => {
       <div className="font-loader">
         <Header />
         <Routes>
-          <Route index element={<Home />} />
+          <Route index path="/" element={<Home />} />
         </Routes>
         <Footer />
       </div>
