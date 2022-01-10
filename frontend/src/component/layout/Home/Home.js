@@ -6,6 +6,7 @@ import MetaData from "../MetaData";
 import { getProducts } from "../../../actions/productActions";
 import { useSelector, useDispatch } from "react-redux";
 import Loader from "../../../component/layout/Loader/Loader";
+import { useAlert } from "react-alert";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -13,9 +14,15 @@ const Home = () => {
     (state) => state.products
   );
 
+  const alert = useAlert();
   useEffect(() => {
+    if (error) {
+      console.log("hello");
+      // alert.error("erro occured"as);
+      return alert.error("Error occured while fetching products");
+    }
     dispatch(getProducts());
-  }, [dispatch]);
+  }, [dispatch, error, alert]);
 
   return (
     <Fragment>
@@ -37,7 +44,7 @@ const Home = () => {
 
           <h2 className="homeHeading">Featured Products</h2>
           <div className="container" id="container">
-            {products.map((product, key) => (
+            {products && products.map((product, key) => (
               <Product key={key} product={product} />
             ))}
           </div>

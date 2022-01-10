@@ -17,7 +17,7 @@ export const getProducts = () => async (dispatch) => {
     });
   } catch (error) {
     dispatch({
-      ALL_PRODUCT_FAIL,
+      type: ALL_PRODUCT_FAIL,
       payload: error.response.data.message,
     });
   }

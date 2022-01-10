@@ -5,7 +5,7 @@ const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const ApiFeatures = require("../utils/apiFeatures");
 
 // Get All Products
-const getAllProducts = catchAsyncErrors(async (req, res) => {
+const getAllProducts = catchAsyncErrors(async (req, res, next) => {
   const resultPerPage = 8;
   const productsCount = await Product.countDocuments();
 
@@ -189,7 +189,7 @@ const deleteReview = catchAsyncErrors(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    message: `review deleted successfully`
+    message: `review deleted successfully`,
   });
 });
 
